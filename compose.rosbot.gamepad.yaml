@@ -1,0 +1,25 @@
+services:
+
+  joy2twist:
+    image: husarion/joy2twist:galactic
+    tty: true
+    devices:
+      - /dev/input/js0
+    volumes: 
+      - ./config/joy2twist.yaml:/joy2twist.yaml
+    command: >
+      ros2 launch
+        joy2twist gamepad_controller.launch.py
+        joy2twist_params_file:=/joy2twist.yaml
+
+  microros:
+    image: microros/micro-ros-agent:humble
+    volumes:
+      - ./micro-ros_entrypoint.sh:/micro-ros_entrypoint.sh
+    devices:
+      - ${SERIAL_PORT:-/dev/ttyAMA0}
+    command: serial -D ${SERIAL_PORT:-/dev/ttyAMA0}  serial -b 576000 # -v6
+
+  rosbot:
+    image: husarion/rosbot:humble
+    command: ros2 launch rosbot_bringup rosbot_bringup.launch.py

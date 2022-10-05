@@ -1,0 +1,75 @@
+x-vpn-config:
+  dds-discovery-server-client: &client_config
+    restart: unless-stopped
+    network_mode: host
+    ipc: host
+    configs: [ dds-config-client ]
+    environment:
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/dds-config-client
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+  dds-discovery-server-server: &server_config
+    restart: unless-stopped
+    network_mode: host
+    ipc: host
+    configs: [ dds-config-server ]
+    environment:
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/dds-config-server
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+
+# ================================================================================
+
+services:
+
+  navigation:
+    <<: *client_config
+    image: husarion/navigation2:humble
+    volumes:
+      - ./config/nav2_params.yaml:/nav2_params.yaml
+    command: >
+      ros2 launch nav2_bringup navigation_launch.py
+        params_file:=/nav2_params.yaml
+        use_sim_time:=${USE_SIM_TIME:-False}
+
+  localization:
+    <<: *client_config
+    image: husarion/navigation2:humble
+    volumes:
+      - ./config/amcl_params.yaml:/amcl_params.yaml
+      - ./maps:/maps
+    command: >
+      ros2 launch nav2_bringup localization_launch.py
+        params_file:=/amcl_params.yaml
+        map:=/maps/map.yaml
+        use_sim_time:=${USE_SIM_TIME:-False}
+
+  rplidar:
+    <<: *client_config
+    image: husarion/rplidar:humble
+    devices:
+      - /dev/ttyUSB0
+    command: >
+      ros2 launch sllidar_ros2 sllidar_launch.py
+        serial_baudrate:=${RPLIDAR_BAUDRATE:-115200}
+        frame_id:=lidar_link
+
+  microros:
+    <<: *client_config
+    image: microros/micro-ros-agent:humble
+    volumes:
+      - ./micro-ros_entrypoint.sh:/micro-ros_entrypoint.sh
+    devices:
+      - ${SERIAL_PORT:-/dev/ttyAMA0}
+    command: serial -D ${SERIAL_PORT:-/dev/ttyAMA0}  serial -b 576000 # -v6
+
+  rosbot:
+    <<: *server_config
+    image: husarion/rosbot:humble
+    command: ros2 launch rosbot_bringup rosbot_bringup.launch.py
+
+# ================================================================================
+
+configs:
+  dds-config-client:
+    file: ./dds-config.client.xml
+  dds-config-server:
+    file: ./dds-config.server.xml
