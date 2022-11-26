@@ -6,7 +6,9 @@ Navigate autonomously setting target point in RViz running on your PC. You can c
 
 ## PC
 
-Connect a gamepad to USB port of your PC/laptop. 
+Create a map of the environment using the[rosbot-mapping](https://github.com/husarion/rosbot-mapping) project template.
+
+Copy `rosbot-mapping/maps` folder to `rosbot-navigation/maps` (the same directory as this README).
 
 Then create `.env` file 
 
