@@ -1,0 +1,13 @@
+services:
+
+  rviz:
+    image: husarion/rviz2:humble-22-11-25
+    network_mode: host
+    ipc: host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./config/rosbot.rviz:/root/.rviz2/default.rviz
+    environment:
+      - DDS_CONFIG
+      - DISPLAY=${DISPLAY:?err}
+      - LIBGL_ALWAYS_SOFTWARE=1
