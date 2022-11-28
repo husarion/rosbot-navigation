@@ -10,13 +10,7 @@ Create a map of the environment using the[rosbot-mapping](https://github.com/hus
 
 Copy `rosbot-mapping/maps` folder to `rosbot-navigation/maps` (the same directory as this README).
 
-Then create `.env` file 
-
-```bash
-cp .env.template .env
-```
-
-Check your configs
+Check your configs in `.env` file
 
 ```
 LIDAR_BAUDRATE=256000
