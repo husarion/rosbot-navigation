@@ -9,5 +9,6 @@ services:
       - ./config/rosbot.rviz:/root/.rviz2/default.rviz
     environment:
       - DDS_CONFIG
+      - RMW_IMPLEMENTATION
       - DISPLAY=${DISPLAY:?err}
       - LIBGL_ALWAYS_SOFTWARE=1
