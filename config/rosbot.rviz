@@ -86,8 +86,6 @@ Visualization Manager:
           Value: true
         rplidar_a2_link:
           Value: false
-        rplidar_s1_link:
-          Value: true
         rr_range:
           Value: false
         rr_wheel_link:
@@ -98,41 +96,38 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          body_link:
-            camera_link:
-              orbbec_astra_link:
-                orbbec_astra_depth_link:
-                  orbbec_astra_depth_reference_link:
-                    {}
-            cover_link:
-              rplidar_a2_link:
-                laser:
-                  {}
-              rplidar_s1_link:
-                {}
-            fl_range:
-              {}
-            fl_wheel_link:
-              {}
-            fr_range:
-              {}
-            fr_wheel_link:
-              {}
-            imu_link:
-              {}
-            rl_range:
-              {}
-            rl_wheel_link:
-              {}
-            rr_range:
-              {}
-            rr_wheel_link:
-              {}
         map:
           {}
         odom:
-          {}
+          base_link:
+            body_link:
+              camera_link:
+                orbbec_astra_link:
+                  orbbec_astra_depth_link:
+                    orbbec_astra_depth_reference_link:
+                      {}
+              cover_link:
+                rplidar_a2_link:
+                  laser:
+                    {}
+              fl_range:
+                {}
+              fl_wheel_link:
+                {}
+              fr_range:
+                {}
+              fr_wheel_link:
+                {}
+              imu_link:
+                {}
+              rl_range:
+                {}
+              rl_wheel_link:
+                {}
+              rr_range:
+                {}
+              rr_wheel_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -162,7 +157,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         cover_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fl_range:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -171,6 +175,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        fr_range:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         fr_wheel_link:
           Alpha: 1
           Show Axes: false
@@ -184,16 +192,37 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        orbbec_astra_depth_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        orbbec_astra_depth_reference_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        orbbec_astra_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rl_range:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         rl_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rplidar_s1_link:
+        rplidar_a2_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        rr_range:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         rr_wheel_link:
           Alpha: 1
           Show Axes: false
@@ -302,16 +331,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 20.486473083496094
+      Distance: 10.811365127563477
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.0143977403640747
-        Y: 4.34451961517334
-        Z: -2.2291476726531982
+        X: 0.853468656539917
+        Y: -4.184290409088135
+        Z: 1.061775803565979
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
