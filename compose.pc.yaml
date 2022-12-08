@@ -1,7 +1,7 @@
 services:
 
   rviz:
-    image: husarion/rviz2:humble-22-11-25
+    image: husarion/rviz2:humble-22-12-08
     network_mode: host
     ipc: host
     volumes:

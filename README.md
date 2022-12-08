@@ -29,7 +29,7 @@ Sync workspace with ROSbot
 ./sync_with_rosbot.sh rosbot2r
 ```
 
-and run Rviz with a gamepad controller on your PC:
+and run Rviz and set initial `2D Pose Estimate` by using the button in RViz UI.
 
 ```bash
 xhost +local:docker && \
@@ -47,7 +47,7 @@ docker compose -f compose.pc.yaml up
 > ```
 > docker stop rosbot microros || true && docker run \
 > --rm -it --privileged \
-> husarion/rosbot:humble-22-11-25 \
+> husarion/rosbot:humble-22-12-08 \
 > /flash-firmware.py /root/firmware.bin
 > ```
 
