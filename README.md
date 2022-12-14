@@ -1,10 +1,16 @@
 # rosbot-navigation
 
-Navigate autonomously setting target point in RViz running on your PC. You can control ROSbot over the Internet (with `DDS_CONFIG=HUSARNET_SIMPLE_AUTO` env) or in LAN network (with `DDS_CONFIG=DEFAULT` env).
+Setting target point in RViz (running on your PC) for ROSbot driving autonomously thanks to Nav2 stack. Works both in the LAN network and [over the Internet](https://husarion.com/manuals/rosbot/remote-access/). 
 
 ## Quick Start
 
 ## PC
+
+Clone this repository:
+
+```
+git clone https://github.com/husarion/rosbot-navigation.git
+```
 
 Create a map of the environment using the[rosbot-mapping](https://github.com/husarion/rosbot-mapping) project template.
 
@@ -13,23 +19,35 @@ Copy `rosbot-mapping/maps` folder to `rosbot-navigation/maps` (the same director
 Check your configs in `.env` file
 
 ```
-LIDAR_BAUDRATE=256000
 LIDAR_SERIAL=/dev/ttyUSB0
+
+# for RPLIDAR A2M8
+# LIDAR_BAUDRATE=115200
+# for RPLIDAR A2M12 and A3
+LIDAR_BAUDRATE=256000
+
 DDS_CONFIG=DEFAULT
+# DDS_CONFIG=HUSARNET_SIMPLE_AUTO
+
+# RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+# on ROSbot run "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" in the terminal (system env has precedence over .env file)
+
 ```
 
 **Notes:**
-- If you have RPLIDAR A3 or A2M12 (with violet border around the lenses) set: `LIDAR_BAUDRATE=256000`. Otherwise (for older A2 LIDARs): `LIDAR_BAUDRATE=115200`.
 - Usually RPLIDAR is listed under `/dev/ttyUSB0`, but verify it with `ls -la /dev/ttyUSB*` command.
-- With `DDS_CONFIG=DEFAULT` your robot and laptop need to be in the same LAN network. If you want to use this demo over the Internet, set `DDS_CONFIG=HUSARNET_SIMPLE_AUTO` and [enable Husarnet on ROSbot and you PC](https://husarion.com/manuals/rosbot/operating-system-reinstallation/)
+- If you have RPLIDAR A3 or A2M12 (with violet border around the lenses) set: `LIDAR_BAUDRATE=256000`. Otherwise (for older A2 LIDARs): `LIDAR_BAUDRATE=115200`.
+- With `DDS_CONFIG=DEFAULT` your robot and laptop need to be in the same LAN network. If you want to use this demo over the Internet, set `DDS_CONFIG=HUSARNET_SIMPLE_AUTO` and [enable Husarnet on ROSbot and you PC](https://husarion.com/manuals/rosbot/remote-access/).
+
 
 Sync workspace with ROSbot
 
 ```bash
-./sync_with_rosbot.sh rosbot2r
+./sync_with_rosbot.sh <ROSbot_ip>
 ```
 
-and run Rviz and set initial `2D Pose Estimate` by using the button in RViz UI.
+Run Rviz and set initial `2D Pose Estimate` by using the button in RViz UI:
 
 ```bash
 xhost +local:docker && \
