@@ -2,8 +2,6 @@
 
 Setting target point in RViz (running on your PC) for ROSbot driving autonomously thanks to Nav2 stack. Works both in the LAN network and [over the Internet](https://husarion.com/manuals/rosbot/remote-access/). 
 
-## Quick Start
-
 ## PC
 
 Clone this repository:
@@ -12,7 +10,7 @@ Clone this repository:
 git clone https://github.com/husarion/rosbot-navigation.git
 ```
 
-Create a map of the environment using the[rosbot-mapping](https://github.com/husarion/rosbot-mapping) project template.
+Create a map of the environment using the [rosbot-mapping](https://github.com/husarion/rosbot-mapping) project template.
 
 Copy `rosbot-mapping/maps` folder to `rosbot-navigation/maps` (the same directory as this README).
 
@@ -29,8 +27,8 @@ LIDAR_BAUDRATE=256000
 DDS_CONFIG=DEFAULT
 # DDS_CONFIG=HUSARNET_SIMPLE_AUTO
 
-# RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+# RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 # on ROSbot run "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" in the terminal (system env has precedence over .env file)
 
 ```
@@ -41,18 +39,20 @@ RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 - With `DDS_CONFIG=DEFAULT` your robot and laptop need to be in the same LAN network. If you want to use this demo over the Internet, set `DDS_CONFIG=HUSARNET_SIMPLE_AUTO` and [enable Husarnet on ROSbot and you PC](https://husarion.com/manuals/rosbot/remote-access/).
 
 
-Sync workspace with ROSbot
+To sync workspace with ROSbot execute (in `rosbot-navigation` directory):
 
 ```bash
 ./sync_with_rosbot.sh <ROSbot_ip>
 ```
 
-Run Rviz and set initial `2D Pose Estimate` by using the button in RViz UI:
+Run RViz and set the initial `2D Pose Estimate` by using the button in RViz UI:
 
 ```bash
 xhost +local:docker && \
 docker compose -f compose.pc.yaml up
 ```
+
+Now, navigate around with the `2D Goal Pose` button in RViz UI.
 
 ## ROSbot
 
@@ -69,7 +69,7 @@ docker compose -f compose.pc.yaml up
 > /flash-firmware.py /root/firmware.bin
 > ```
 
-In the ROSbot's shell execute (in the `/home/husarion/rosbot-navigation` directory)
+In the ROSbot's shell execute (in `/home/husarion/rosbot-navigation` directory):
 
 ```bash
 docker compose -f compose.rosbot.yaml up
