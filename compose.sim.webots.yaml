@@ -1,35 +1,33 @@
 services:
 
+  rviz:
+    image: husarion/rviz2:humble-22-12-20
+    runtime: nvidia
+    container_name: rviz
+    network_mode: host
+    ipc: host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./config/rosbot.rviz:/root/.rviz2/default.rviz
+    environment:
+      - RMW_IMPLEMENTATION
+      - DISPLAY=${DISPLAY:?err}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+
   rosbot:
-    image: husarion/rosbot:humble-22-12-08
+    image: husarion/webots:galactic
+    runtime: nvidia
     network_mode: host
     ipc: host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
     environment:
-      - DDS_CONFIG
       - RMW_IMPLEMENTATION
-    command: ros2 launch rosbot_bringup rosbot_bringup.launch.py
-
-  microros:
-    image: husarion/micro-ros-agent:humble-22-12-07
-    network_mode: host
-    ipc: host
-    devices:
-      - ${SERIAL_PORT:?err}
-    environment:
-      - DDS_CONFIG
-      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-    command: ros2 run micro_ros_agent micro_ros_agent serial -D $SERIAL_PORT serial -b 576000 # -v6
-
-  rplidar:
-    image: husarion/rplidar:humble-22-12-07
-    network_mode: host
-    ipc: host
-    devices:
-      - ${LIDAR_SERIAL:?err}:/dev/ttyUSB0
-    environment:
-      - DDS_CONFIG
-      - RMW_IMPLEMENTATION
-    command: ros2 launch sllidar_ros2 sllidar_launch.py serial_baudrate:=${LIDAR_BAUDRATE:-115200}
+      - DISPLAY=${DISPLAY:?err}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    command: ros2 launch webots_ros2_husarion robot_launch.py
 
   navigation:
     image: husarion/navigation2:humble-22-12-07
@@ -43,7 +41,7 @@ services:
     command: >
       ros2 launch nav2_bringup navigation_launch.py
         params_file:=/nav2_params.yaml
-        use_sim_time:=${USE_SIM_TIME:-False}
+        use_sim_time:=true
 
   localization:
     image: husarion/navigation2:humble-22-12-07
@@ -59,4 +57,4 @@ services:
       ros2 launch nav2_bringup localization_launch.py
         params_file:=/amcl_params.yaml
         map:=/maps/map.yaml
-        use_sim_time:=${USE_SIM_TIME:-False}
+        use_sim_time:=true
