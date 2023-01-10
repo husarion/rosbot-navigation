@@ -10,6 +10,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./config/rosbot.rviz:/root/.rviz2/default.rviz
     environment:
+      - DDS_CONFIG
       - RMW_IMPLEMENTATION
       - DISPLAY=${DISPLAY:?err}
       - NVIDIA_VISIBLE_DEVICES=all
@@ -23,6 +24,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     environment:
+      - DDS_CONFIG
       - RMW_IMPLEMENTATION
       - DISPLAY=${DISPLAY:?err}
       - NVIDIA_VISIBLE_DEVICES=all
