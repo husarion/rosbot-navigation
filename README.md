@@ -39,7 +39,7 @@ RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 - With `DDS_CONFIG=DEFAULT` your robot and laptop need to be in the same LAN network. If you want to use this demo over the Internet, set `DDS_CONFIG=HUSARNET_SIMPLE_AUTO` and [enable Husarnet on ROSbot and you PC](https://husarion.com/manuals/rosbot/remote-access/).
 
 
-To sync workspace with ROSbot execute (in `rosbot-navigation` directory):
+To sync workspace with ROSbot (works with the newest [OS images](https://husarion.com/manuals/rosbot/operating-system-reinstallation/)) execute (in `rosbot-navigation` directory):
 
 ```bash
 ./sync_with_rosbot.sh <ROSbot_ip>
